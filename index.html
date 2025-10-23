@@ -3,405 +3,383 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IT Дүниесі - Технологиялар және Білім</title>
+  <title>IT Дүниесі</title>
   <style>
-    /* ------------- Reset ------------- */
-    *, *::before, *::after {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
+    /* Общие стили */
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
       background: #f9f9f9;
-      color: #333;
+      color: #222;
       line-height: 1.6;
-      scroll-behavior: smooth;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
     a {
       color: #007aff;
       text-decoration: none;
-      transition: color 0.3s ease;
     }
-    a:hover {
-      color: #005ecb;
+    a:hover, a:focus {
+      text-decoration: underline;
     }
-    img {
-      max-width: 100%;
-      display: block;
-    }
-    ul {
-      list-style: inside disc;
-      margin-top: 10px;
-    }
-    button {
-      cursor: pointer;
-      font-family: inherit;
-    }
-    /* ------------- Header ------------- */
-    header.main-header {
-      position: sticky;
-      top: 0;
-      background: #fff;
-      padding: 25px 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      z-index: 1000;
-      transition: padding 0.3s ease;
+
+    /* Хедер */
+    .main-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: #007aff;
+      color: white;
+      padding: 20px 40px;
+      font-size: 1.6rem;
+      font-weight: 700;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      z-index: 999;
+      transition: padding 0.3s ease, font-size 0.3s ease;
     }
-    header.main-header.shrink {
-      padding: 10px 20px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-    }
-    header .logo {
-      font-weight: 700;
-      font-size: 1.6rem;
-      color: #007aff;
-      user-select: none;
+    .main-header.shrink {
+      padding: 10px 40px;
+      font-size: 1.3rem;
     }
     nav.nav {
       display: flex;
-      gap: 20px;
-      font-weight: 600;
-      font-size: 1rem;
+      gap: 25px;
     }
     nav.nav a {
-      padding: 5px 8px;
-      border-radius: 4px;
-      transition: background-color 0.3s ease;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
     }
-    nav.nav a:hover {
-      background-color: #e0f0ff;
+
+    /* Основной контент */
+    main {
+      padding-top: 100px;
+      max-width: 1000px;
+      margin: 0 auto 40px auto;
+      padding-left: 20px;
+      padding-right: 20px;
     }
-    /* ------------- Hero ------------- */
-    .hero {
-      background: url("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1470&q=80") center/cover no-repeat;
-      height: 65vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 0 20px;
-      color: #fff;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.8) 100%);
-      z-index: 0;
-    }
-    .hero h1 {
-      position: relative;
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      max-width: 900px;
-      z-index: 1;
-      font-weight: 700;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
-      animation: fadeInDown 1.2s ease forwards;
-      opacity: 0;
-    }
-    /* ------------- Sections ------------- */
-    main.content {
-      flex-grow: 1;
-      max-width: 960px;
-      margin: 40px auto 80px;
-      padding: 0 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 50px;
-    }
+
+    /* Секции */
     section.section {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.07);
-      padding: 30px 40px;
+      margin-bottom: 60px;
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
     section.section.visible {
       opacity: 1;
       transform: translateY(0);
     }
-    section.section h2 {
-      color: #007aff;
-      font-size: 1.8rem;
-      margin-bottom: 18px;
+    section h2 {
+      border-bottom: 3px solid #007aff;
+      padding-bottom: 6px;
+      margin-bottom: 20px;
       font-weight: 700;
-      user-select: none;
+      font-size: 2rem;
+      color: #007aff;
     }
-    section.section p {
-      font-size: 1.1rem;
-      color: #444;
-      margin-bottom: 15px;
-    }
-    section.section ul li {
-      margin-bottom: 8px;
-      font-size: 1rem;
-      color: #555;
-    }
-    /* Code style */
-    pre, code {
-      font-family: 'Source Code Pro', monospace, monospace;
-      background: #f4f4f4;
-      color: #222;
-      border-radius: 6px;
-      padding: 10px 14px;
-      overflow-x: auto;
-      font-size: 0.95rem;
-      line-height: 1.4;
-      user-select: text;
-      margin-top: 12px;
-    }
-    pre {
-      box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
-    }
-    /* ------------- Services Cards ------------- */
+
+    /* Услуги */
     .services {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
-      gap: 25px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
     }
     .service-card {
-      background: #fefefe;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      background: white;
+      box-shadow: 0 3px 6px rgb(0 0 0 / 0.1);
+      border-radius: 10px;
+      flex: 1 1 250px;
       padding: 20px;
       text-align: center;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      opacity: 0;
-      transform: translateY(30px);
+      transition: box-shadow 0.3s ease;
     }
-    .service-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .service-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-    .service-card svg {
-      width: 48px;
-      height: 48px;
-      fill: #007aff;
-      margin-bottom: 12px;
-      user-select: none;
+    .service-card:hover, .service-card:focus-within {
+      box-shadow: 0 6px 15px rgb(0 0 0 / 0.15);
     }
     .service-card h3 {
+      margin-top: 15px;
       margin-bottom: 10px;
-      font-size: 1.25rem;
-      font-weight: 600;
       color: #007aff;
-      user-select: none;
     }
-    .service-card p {
-      font-size: 1rem;
-      color: #555;
-    }
-    /* ------------- Projects Section ------------- */
+
+    /* Проекты */
     .projects {
       display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
     }
     .project-card {
-      background: #fff;
+      background: white;
       border-radius: 12px;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.06);
       overflow: hidden;
+      box-shadow: 0 3px 8px rgb(0 0 0 / 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: transform 0.4s ease, opacity 0.6s ease;
-      display: flex;
-      flex-direction: column;
-      user-select: none;
     }
-    .project-card.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .project-card:hover, .project-card:focus-within {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgb(0 0 0 / 0.2);
     }
     .project-card img {
-      object-fit: cover;
-      height: 160px;
       width: 100%;
-      transition: transform 0.4s ease;
+      height: 180px;
+      object-fit: cover;
+      display: block;
     }
-    .project-card:hover img {
-      transform: scale(1.05);
-    }
-    .project-card .project-content {
-      padding: 18px 20px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
+    .project-card .content {
+      padding: 15px 20px;
     }
     .project-card h4 {
-      margin-bottom: 12px;
-      font-weight: 700;
-      font-size: 1.2rem;
+      margin: 0 0 10px 0;
       color: #007aff;
     }
     .project-card p {
-      color: #555;
-      flex-grow: 1;
-      font-size: 1rem;
-      line-height: 1.3;
+      margin: 0;
+      color: #444;
     }
-    /* ------------- Team Section ------------- */
-    .team {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-      gap: 30px;
+
+    /* О нас */
+    #about p {
+      max-width: 700px;
+      margin-bottom: 15px;
     }
-    .team-member {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 7px 22px rgba(0,0,0,0.06);
-      overflow: hidden;
-      text-align: center;
-      padding: 20px 15px;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-      user-select: none;
+
+    /* Контакт */
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgb(0 0 0 / 0.1);
     }
-    .team-member.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .team-member img {
-      border-radius: 50%;
-      width: 110px;
-      height: 110px;
-      object-fit: cover;
-      margin-bottom: 14px;
-      border: 3px solid #007aff;
-      transition: transform 0.3s ease;
-    }
-    .team-member:hover img {
-      transform: scale(1.05);
-    }
-    .team-member h5 {
+    label {
       font-weight: 700;
-      color: #007aff;
-      margin-bottom: 6px;
-      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 5px;
     }
-    .team-member p {
-      font-size: 0.9rem;
-      color: #666;
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      resize: vertical;
+      font-family: inherit;
     }
-    /* ------------- Footer ------------- */
-    footer.site-footer {
-      background: #f3f3f3;
-      text-align: center;
-      padding: 25px 20px;
-      font-size: 0.9rem;
-      color: #777;
-      border-top: 1px solid #ddd;
-      user-select: none;
-    }
-    /* ------------- Animations ------------- */
-    @keyframes fadeInDown {
-      0% { opacity: 0; transform: translateY(-20px);}
-      100% {opacity: 1; transform: translateY(0);}
-    }
-    /* ------------- Back to Top Button ------------- */
-    .back-to-top {
-      position: fixed;
-      right: 30px;
-      bottom: 30px;
-      background: #007aff;
+    button[type="submit"] {
+      background-color: #007aff;
       color: white;
       border: none;
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      font-size: 28px;
+      padding: 14px 22px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 1.1rem;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button[type="submit"]:hover,
+    button[type="submit"]:focus {
+      background-color: #005bb5;
+      outline: none;
+    }
+
+    /* Футер */
+    .site-footer {
+      background-color: #007aff;
+      color: white;
+      text-align: center;
+      padding: 15px 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* Кнопка "Наверх" */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #007aff;
+      border: none;
+      color: white;
+      padding: 15px 18px;
+      border-radius: 50%;
+      font-size: 1.3rem;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgb(0 0 0 / 0.15);
       opacity: 0;
-      pointer-events: none;
+      visibility: hidden;
       transition: opacity 0.3s ease;
-      z-index: 150;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      user-select: none;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      z-index: 1000;
     }
     .back-to-top.show {
       opacity: 1;
-      pointer-events: auto;
+      visibility: visible;
     }
-    .back-to-top:hover {
-      background: #005ecb;
+
+    /* Адаптив */
+    @media (max-width: 600px) {
+      .main-header {
+        flex-direction: column;
+        padding: 15px 20px;
+      }
+      nav.nav {
+        margin-top: 10px;
+        gap: 15px;
+      }
     }
   </style>
 </head>
 <body>
-  <header class="main-header">
-    <div class="logo" aria-label="IT Дүниесі">IT Дүниесі</div>
-    <nav class="nav" role="navigation" aria-label="Негізгі навигация">
+  <header class="main-header" role="banner">
+    <div>IT Дүниесі</div>
+    <nav class="nav" role="navigation" aria-label="Басты мәзір">
       <a href="#services">Қызметтер</a>
       <a href="#projects">Жобалар</a>
-      <a href="#team">Команда</a>
       <a href="#about">Біз туралы</a>
       <a href="#contact">Байланыс</a>
     </nav>
   </header>
 
-  <section class="hero" role="banner" aria-label="Жоғарғы бөлім - IT Дүниесі">
-    <h1>Қазіргі заманғы IT технологиялар әлеміне қош келдіңіз!</h1>
-  </section>
-
-  <main class="content">
+  <main>
     <!-- Қызметтер -->
     <section id="services" class="section" tabindex="0" aria-label="Қызметтер">
-      <h2>Біздің Қызметтер</h2>
+      <h2>Қызметтер</h2>
       <div class="services">
-        <article class="service-card" tabindex="0" aria-label="Веб даму қызметі">
-          <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-            <circle cx="32" cy="32" r="30" stroke="#007aff" stroke-width="4" fill="none"/>
-            <path d="M16 24h32M16 40h32M32 16v32" stroke="#007aff" stroke-width="4" stroke-linecap="round"/>
-          </svg>
-          <h3>Веб даму</h3>
-          <p>Сапалы, жылдам және адаптивті веб-сайттар мен қосымшаларды жасау.</p>
+        <article class="service-card" tabindex="0">
+          <h3>Веб әзірлеу</h3>
+          <p>Сайттар мен веб-қосымшаларды жоғары сапада жасаймыз.</p>
         </article>
-
-        <article class="service-card" tabindex="0" aria-label="Мобильді қосымшалар дамыту">
-          <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-            <rect x="18" y="10" width="28" height="44" rx="6" ry="6" stroke="#007aff" stroke-width="4" fill="none"/>
-            <circle cx="32" cy="52" r="3" stroke="#007aff" stroke-width="4" fill="none"/>
-          </svg>
-          <h3>Мобильді даму</h3>
-          <p>Android және iOS платформаларына арналған қосымшалар құру.</p>
+        <article class="service-card" tabindex="0">
+          <h3>Мобильді қосымшалар</h3>
+          <p>Android және iOS платформаларына арналған қосымшалар.</p>
         </article>
-
-        <article class="service-card" tabindex="0" aria-label="Киберқауіпсіздік қызметі">
-          <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-            <path d="M32 4L12 20v24l20 16 20-16V20L32 4z" stroke="#007aff" stroke-width="4" fill="none"/>
-            <path d="M32 28v12" stroke="#007aff" stroke-width="4" stroke-linecap="round"/>
-            <circle cx="32" cy="20" r="4" stroke="#007aff" stroke-width="4" fill="none"/>
-          </svg>
-          <h3>Киберқауіпсіздік</h3>
-          <p>Желілік қауіпсіздік және деректерді қорғау бойынша кешенді шешімдер.</p>
-        </article>
-
-        <article class="service-card" tabindex="0" aria-label="IT-консалтинг қызметі">
-          <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-            <path d="M24 20h16v24H24z" stroke="#007aff" stroke-width="4" fill="none"/>
-            <circle cx="32" cy="32" r="6" stroke="#007aff" stroke-width="4" fill="none"/>
-            <path d="M32 44v8" stroke="#007aff" stroke-width="4" stroke-linecap="round"/>
-          </svg>
-          <h3>IT-консалтинг</h3>
-          <p>Бизнесті дамытуға арналған IT стратегиялар мен шешімдер.</p>
+        <article class="service-card" tabindex="0">
+          <h3>UI/UX дизайн</h3>
+          <p>Қолданушыға ыңғайлы және тартымды интерфейстер жасаймыз.</p>
         </article>
       </div>
     </section>
+
+    <!-- Жобалар -->
+    <section id="projects" class="section" tabindex="0" aria-label="Жобалар">
+      <h2>Жобалар</h2>
+      <div class="projects">
+        <article class="project-card" tabindex="0" aria-label="Жоба: Онлайн дүкен">
+          <img src="https://via.placeholder.com/400x180?text=Онлайн+дүкен" alt="Онлайн дүкеннің скриншоты" />
+          <div class="content">
+            <h4>Онлайн дүкен</h4>
+            <p>Кең функционалды интернет-дүкен платформасы.</p>
+          </div>
+        </article>
+        <article class="project-card" tabindex="0" aria-label="Жоба: Қаржылық қосымша">
+          <img src="https://via.placeholder.com/400x180?text=Қаржылық+қосымша" alt="Қаржылық қосымшаның скриншоты" />
+          <div class="content">
+            <h4>Қаржылық қосымша</h4>
+            <p>Қаржыны басқару үшін қолайлы мобильді шешім.</p>
+          </div>
+        </article>
+        <article class="project-card" tabindex="0" aria-label="Жоба: Білім беру платформасы">
+          <img src="https://via.placeholder.com/400x180?text=Білім+беру+платформасы" alt="Білім беру платформасының скриншоты" />
+          <div class="content">
+            <h4>Білім беру платформасы</h4>
+            <p>Онлайн курстар мен интерактивті сабақтар.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Біз туралы -->
+    <section id="about" class="section" tabindex="0" aria-label="Біз туралы">
+      <h2>Біз туралы</h2>
+      <p>IT Дүниесі — Қазақстандағы IT саласындағы жетекші компаниялардың бірі. Біз ең соңғы технологияларды пайдалана отырып, бизнесіңіздің дамуына көмектесеміз.</p>
+      <p>Біздің миссиямыз — инновациялық шешімдер арқылы адамдардың өмірін жақсарту. Біз әрбір клиентпен жеке жұмыс істеп, олардың қажеттіліктеріне сай ерекше өнімдер жасаймыз.</p>
+      <p>Біздің құндылықтарымызға адалдық, сапа және үздіксіз даму кіреді.</p>
+    </section>
+
+    <!-- Байланыс -->
+    <section id="contact" class="section" tabindex="0" aria-label="Байланыс">
+      <h2>Байланыс</h2>
+      <p>Кез келген сұрақтар бойынша бізге хабарласыңыз:</p>
+      <form aria-label="Байланыс формасы" style="max-width: 400px; margin-top: 20px;">
+        <label for="name">Аты-жөні</label>
+        <input id="name" name="name" type="text" required placeholder="Аты-жөніңіз" />
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required placeholder="Email адресіңіз" />
+
+        <label for="message">Хабарлама</label>
+        <textarea id="message" name="message" required placeholder="Хабарламаңызды жазыңыз" rows="5"></textarea>
+
+        <button type="submit">Жіберу</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    &copy; 2025 IT Дүниесі. Барлық құқықтар қорғалған.
+  </footer>
+
+  <button class="back-to-top" aria-label="Бетке жоғары қайту" title="Бетке жоғары қайту">↑</button>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const header = document.querySelector(".main-header");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 60) {
+          header.classList.add("shrink");
+        } else {
+          header.classList.remove("shrink");
+        }
+      });
+
+      const revealElements = document.querySelectorAll(".section, .service-card, .project-card");
+
+      const revealOnScroll = () => {
+        const triggerBottom = window.innerHeight * 0.85;
+
+        revealElements.forEach(el => {
+          const top = el.getBoundingClientRect().top;
+          if (top < triggerBottom) {
+            el.classList.add("visible");
+          } else {
+            el.classList.remove("visible");
+          }
+        });
+      };
+
+      window.addEventListener("scroll", revealOnScroll);
+      revealOnScroll();
+
+      const navLinks = document.querySelectorAll(".nav a[href^='#']");
+      navLinks.forEach(link => {
+        link.addEventListener("click", e => {
+          e.preventDefault();
+          const targetID = link.getAttribute("href").substring(1);
+          const targetEl = document.getElementById(targetID);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      });
+
+      const backToTop = document.querySelector(".back-to-top");
+      backToTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 400) {
+          backToTop.classList.add("show");
+        } else {
+          backToTop.classList.remove("show");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
